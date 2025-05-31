@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomer Graduation Celebration 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a148c;
+            --secondary: #ffab00;
+            --accent: #e91e63;
+            --light: #f5f5f5;
+            --dark: #212121;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            font-weight: 300;
+        }
+
+        .graduation-cap {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .graduation-cap:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .game-container {
+            background: rgba(74, 20, 140, 0.8);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            animation: fadeInUp 1s ease-out;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        .game-question {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            min-height: 60px;
+        }
+
+        .game-input {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.3);
+            transform: scale(1.02);
+        }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background: #c2185b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .success {
+            background: rgba(46, 125, 50, 0.8);
+            color: white;
+        }
+
+        .error {
+            background: rgba(198, 40, 40, 0.8);
+            color: white;
+        }
+
+        .hint {
+            margin-top: 1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(74, 20, 140, 0.9);
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .score-display span {
+            margin-left: 8px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 1rem 0;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        /* Enhanced Balloons */
+        .balloon {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            width: 80px;
+            height: 100px;
+            border-radius: 50%;
+            animation: floatUp 15s linear infinite;
+            transform-origin: bottom center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 80px;
+            background: linear-gradient(to bottom, #555, #999);
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .balloon:after {
+            content: "";
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: shimmer 4s infinite;
+        }
+
+        /* Metallic color variations */
+        .balloon.gold {
+            background: radial-gradient(circle at 30% 30%, #FFD700, #D4AF37);
+        }
+
+        .balloon.silver {
+            background: radial-gradient(circle at 30% 30%, #C0C0C0, #A9A9A9);
+        }
+
+        .balloon.ruby {
+            background: radial-gradient(circle at 30% 30%, #E0115F, #9B111E);
+        }
+
+        .balloon.sapphire {
+            background: radial-gradient(circle at 30% 30%, #0F52BA, #082567);
+        }
+
+        .balloon.emerald {
+            background: radial-gradient(circle at 30% 30%, #50C878, #006B3C);
+        }
+
+        .balloon.amethyst {
+            background: radial-gradient(circle at 30% 30%, #9966CC, #663399);
+        }
+
+        /* Butterflies */
+        .butterfly {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+            animation: flutter 15s infinite linear;
+            opacity: 0.9;
+            transform-origin: center;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary);
+            opacity: 0;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .celebration-emoji {
+            font-size: 2rem;
+            position: fixed;
+            z-index: 1001;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+        }
+
+        /* Music controls */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(74, 20, 140, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes flutter {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 30px) rotate(15deg);
+            }
+            50% {
+                transform: translate(40px, 10px) rotate(-10deg);
+            }
+            75% {
+                transform: translate(10px, 40px) rotate(20deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        @keyframes wingFlap {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .pop-animation {
+            animation: pop 0.5s ease-out;
+        }
+
+        .shake-animation {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .game-container {
+                padding: 1.5rem;
+            }
+            
+            .score-display {
+                top: 10px;
+                right: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp {
+            background: #25D366;
+        }
+
+        .linkedin {
+            background: #0077B5;
+        }
+
+        .github {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="graduation-cap" id="grad-cap">🎓</div>
+            <h1>Tomer Class of 2025 Graduation</h1>
+            <h2>Celebrating Your Achievements</h2>
+        </header>
+
+        <div class="main-content">
+            <div class="game-container">
+                <h3 class="game-title">Graduation Quiz Challenge</h3>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p class="game-question" id="question-text">Loading question...</p>
+                
+                <div class="game-input">
+                    <label for="guess">Your answer:</label>
+                    <input type="text" id="guess" placeholder="Enter your answer">
+                    <button id="submit-btn">Submit Answer</button>
+                </div>
+                
+                <p class="hint" id="hint-text"></p>
+                
+                <div class="result" id="result"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© IKCU 2025 Tomer Graduation Ceremony | Congratulations Graduates!</p>
+            <div class="social-links">Connect with RUBYFATH:
+                <a href="https://wa.me/0905053783510" class="social-link whatsapp" target="_blank" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ayaaba-fatawu-sumaila-2615492a6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link linkedin" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/Ayaaba-Fatawu-Sumaila/Machine-Learning-Journey" class="social-link github" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:ayaabafatawusuaila@gmail.com" class="social-link github" target="_blank" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="score-display" id="score-display">
+        Score: <span id="score">0</span>
+    </div>
+
+    <div class="music-control" id="music-control">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Game state
+            const gameState = {
+                score: 0,
+                currentQuestion: 0,
+                questions: [
+                    {
+                        question: "What is the official color of our university?",
+                        answer: "Purple",
+                        hint: "It's a regal color often associated with royalty",
+                        possibleAnswers: ["purple", "violet", "lavender"]
+                    },
+                    {
+                        question: "Who is the dean of our faculty?",
+                        answer: "Dr. Yasmin",
+                        hint: "His last name is a common English surname",
+                        possibleAnswers: ["dr. Yasmin", "Yasmin", "dr Yasmin"]
+                    },
+                    {
+                        question: "What is the name of our university mascot?",
+                        answer: "Thunder",
+                        hint: "It's a powerful natural phenomenon",
+                        possibleAnswers: ["thunder", "the thunder"]
+                    },
+                    {
+                        question: "What is the motto of our university?",
+                        answer: "Knowledge is Power",
+                        hint: "It's a famous phrase by Francis Bacon",
+                        possibleAnswers: ["knowledge is power", "scientia potentia est", "knowing is power"]
+                    },
+                    {
+                        question: "Which month does the graduation ceremony traditionally take place?",
+                        answer: "June",
+                        hint: "It's the first month of summer",
+                        possibleAnswers: ["june", "jun"]
+                    }
+                ],
+                musicPlaying: false
+            };
+
+            // DOM elements
+            const gradCap = document.getElementById('grad-cap');
+            const questionText = document.getElementById('question-text');
+            const guessInput = document.getElementById('guess');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultDiv = document.getElementById('result');
+            const hintText = document.getElementById('hint-text');
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreElement = document.getElementById('score');
+            const progressBar = document.getElementById('progress-bar');
+            const musicControl = document.getElementById('music-control');
+            const backgroundMusic = document.getElementById('background-music');
+            
+            // Initialize game
+            loadQuestion();
+            updateScore();
+            createBalloons(12);
+            createButterflies(8); // Create 8 animated butterflies
+            
+            // Event listeners
+            submitBtn.addEventListener('click', checkAnswer);
+            guessInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+            
+            gradCap.addEventListener('click', function() {
+                createCelebrationEmoji('🎉', gradCap);
+                this.classList.add('pop-animation');
+                setTimeout(() => {
+                    this.classList.remove('pop-animation');
+                }, 500);
+            });
+            
+            musicControl.addEventListener('click', toggleMusic);
+            
+            // Game functions
+            function loadQuestion() {
+                if (gameState.currentQuestion >= gameState.questions.length) {
+                    // Game completed
+                    questionText.textContent = "Congratulations! You've completed all the questions!";
+                    guessInput.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    hintText.style.display = 'none';
+                    resultDiv.style.display = 'none';
+                    createConfetti();
+                    createBalloons(20); // Extra balloons for celebration
+                    return;
+                }
+                
+                const currentQ = gameState.questions[gameState.currentQuestion];
+                questionText.textContent = currentQ.question;
+                hintText.textContent = "Hint: " + currentQ.hint;
+                guessInput.value = '';
+                resultDiv.style.display = 'none';
+                
+                // Update progress bar
+                const progress = ((gameState.currentQuestion) / gameState.questions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            function checkAnswer() {
+                const currentQ = gameState.questions[gameState.currentQuestion];
+                const userGuess = guessInput.value.trim().toLowerCase();
+                
+                // Validate input
+                if (!userGuess) {
+                    showResult("Please enter an answer!", "error");
+                    guessInput.classList.add('shake-animation');
+                    setTimeout(() => {
+                        guessInput.classList.remove('shake-animation');
+                    }, 500);
+                    return;
+                }
+                
+                // Check if answer is correct (case-insensitive)
+                let isCorrect = false;
+                
+                // Check against all possible answer variations
+                for (const answer of currentQ.possibleAnswers) {
+                    if (userGuess === answer) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+                
+                // Check the answer
+                if (isCorrect) {
+                    gameState.score += 10;
+                    showResult(`🎉 Correct! The answer is ${currentQ.answer}. +10 points!`, "success");
+                    createConfetti();
+                    createCelebrationEmoji('🌟', submitBtn);
+                    createBalloons(5); // Add some balloons for correct answer
+                    updateScore();
+                } else {
+                    showResult(`Incorrect. The correct answer is: ${currentQ.answer}`, "error");
+                }
+                
+                // Move to next question after delay
+                setTimeout(() => {
+                    gameState.currentQuestion++;
+                    loadQuestion();
+                }, 1500);
+            }
+            
+            function showResult(message, type) {
+                resultDiv.textContent = message;
+                resultDiv.className = 'result ' + type;
+                resultDiv.style.display = 'block';
+                resultDiv.classList.add('pop-animation');
+                setTimeout(() => {
+                    resultDiv.classList.remove('pop-animation');
+                }, 500);
+            }
+            
+            function updateScore() {
+                scoreElement.textContent = gameState.score;
+                scoreDisplay.classList.add('pop-animation');
+                setTimeout(() => {
+                    scoreDisplay.classList.remove('pop-animation');
+                }, 500);
+            }
+            
+            function createConfetti() {
+                const colors = ['#ffab00', '#e91e63', '#4a148c', '#00bcd4', '#4caf50'];
+                
+                for (let i = 0; i < 150; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = -10 + 'px';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.opacity = Math.random() + 0.5;
+                    confetti.style.borderRadius = '50%';
+                    
+                    // Random shapes
+                    if (Math.random() > 0.7) {
+                        confetti.style.borderRadius = '0';
+                        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    }
+                    
+                    document.body.appendChild(confetti);
+                    
+                    animateConfetti(confetti);
+                }
+            }
+            
+            function animateConfetti(element) {
+                const duration = Math.random() * 3 + 2;
+                const rotation = Math.random() * 360;
+                
+                element.style.transform = `rotate(${rotation}deg)`;
+                element.animate([
+                    { top: '-10px', opacity: 1 },
+                    { top: '100vh', opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.9, 1)'
+                });
+                
+                setTimeout(() => {
+                    element.remove();
+                }, duration * 1000);
+            }
+            
+            function createCelebrationEmoji(emoji, originElement) {
+                const rect = originElement.getBoundingClientRect();
+                for (let i = 0; i < 5; i++) {
+                    const emojiElement = document.createElement('div');
+                    emojiElement.className = 'celebration-emoji';
+                    emojiElement.textContent = emoji;
+                    emojiElement.style.left = `${rect.left + rect.width/2 + (Math.random() * 40 - 20)}px`;
+                    emojiElement.style.top = `${rect.top}px`;
+                    emojiElement.style.fontSize = `${Math.random() * 1 + 1.5}rem`;
+                    document.body.appendChild(emojiElement);
+                    
+                    setTimeout(() => {
+                        emojiElement.remove();
+                    }, 2000);
+                }
+            }
+            
+            function createBalloons(count) {
+                const balloonColors = ['gold', 'silver', 'ruby', 'sapphire', 'emerald', 'amethyst'];
+                
+                for (let i = 0; i < count; i++) {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon ' + balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                    balloon.style.left = Math.random() * 100 + 'vw';
+                    balloon.style.bottom = -100 + 'px';
+                    balloon.style.opacity = Math.random() * 0.5 + 0.5;
+                    balloon.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    balloon.style.animationDelay = (Math.random() * 5) + 's';
+                    balloon.style.width = (Math.random() * 40 + 70) + 'px'; // Thicker balloons
+                    balloon.style.height = (Math.random() * 60 + 90) + 'px'; // Thicker balloons
+                    
+                    document.body.appendChild(balloon);
+                    
+                    // Remove balloon after animation completes
+                    setTimeout(() => {
+                        balloon.remove();
+                    }, 20000);
+                }
+            }
+            
+            function createButterflies(count) {
+                const butterflyColors = ['🦋', '🌸', '✨','🎈', '🪷', '💮', '🌺', '🌻', '🌼'];
+                
+                for (let i = 0; i < count; i++) {
+                    const butterfly = document.createElement('div');
+                    butterfly.className = 'butterfly';
+                    butterfly.textContent = butterflyColors[Math.floor(Math.random() * butterflyColors.length)];
+                    
+                    // Random starting position
+                    butterfly.style.left = Math.random() * 100 + 'vw';
+                    butterfly.style.top = Math.random() * 100 + 'vh';
+                    
+                    // Random size and animation
+                    const size = Math.random() * 30 + 20;
+                    butterfly.style.fontSize = size + 'px';
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 15 + 20;
+                    butterfly.style.animationDuration = duration + 's';
+                    butterfly.style.animationDelay = Math.random() * 5 + 's';
+                    
+                    // Random color tint
+                    const colors = ['#ffcc00', '#ff66cc', '#66ccff', '#99ff99', '#cc99ff'];
+                    butterfly.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    document.body.appendChild(butterfly);
+                    
+                    // Remove butterfly after animation completes
+                    setTimeout(() => {
+                        butterfly.remove();
+                        createButterflies(1); // Replace with a new butterfly
+                    }, duration * 1000);
+                }
+            }
+            
+            function toggleMusic() {
+                if (gameState.musicPlaying) {
+                    backgroundMusic.pause();
+                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                    gameState.musicPlaying = false;
+                } else {
+                    backgroundMusic.play();
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                    gameState.musicPlaying = true;
+                }
+                musicControl.classList.add('pop-animation');
+                setTimeout(() => {
+                    musicControl.classList.remove('pop-animation');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
